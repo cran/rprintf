@@ -1,0 +1,17 @@
+6ff7115d76ae70c77367c780f8b48509 *DESCRIPTION
+a4c33df13d06112959c410208abc57a2 *LICENSE
+2713b2096357f6b8496af85ca1d22fb6 *NAMESPACE
+49ddce91a4ca1e8177840883f6643d6c *NEWS
+f5ce3d2f1d765d9218c8b8c078c2b9ba *R/patterns.R
+cbe9390d8f8db4aaf76b9f02c0c8061c *R/rprintf.R
+f4e1d46b426778595ccb184cfb80be92 *R/rprintf.match.R
+9e417aae8a04c50142103b761b61850f *R/rprintn.R
+4c4ea7c1f4baf0d1537a5c18f9637343 *R/rprintv.R
+a95764bd3e03352d8052fc8ef72f98c9 *README.md
+f3b6048491f24de3c3b5b62941b5dfb9 *man/rprintf.Rd
+3d418e05d255e8b1b8426876b8a83616 *man/rprintn.Rd
+e0babb4734ceee5f7fc3f4e491866b59 *man/rprintv.Rd
+36195cc670e9ddc44a1bca3090c33ff9 *tests/testthat.R
+779f013a2671e515f75328a0532030e6 *tests/testthat/test-rprintf.R
+ca463dda1b0c9148fdb934817b2812ad *tests/testthat/test-rprintn.R
+964b20f147cf977a00fa59045083da0c *tests/testthat/test-rprintv.R
