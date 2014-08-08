@@ -1,5 +1,6 @@
-rprintf
-=======
+
+
+# rprintf
 
 [![Build Status](https://travis-ci.org/renkun-ken/rprintf.png?branch=master)](https://travis-ci.org/renkun-ken/rprintf)
 
@@ -13,9 +14,15 @@ The primary goal of this package is to make it easier to produce formatted strin
 
 ## Installation
 
-You can install the latest development version from GitHub with
+You can install from CRAN with
 
+```r
+install.packages("rprintf")
 ```
+
+or you can install the latest development version from GitHub with
+
+```r
 devtools::install_github("rprintf","renkun-ken")
 ```
 
@@ -25,63 +32,134 @@ The following examples demonstrate how `rprintf` functions works. You should be 
 
 ### C-style formatting
 
+
+```r
+library(rprintf)
+rprintf("Hello, %s","world")
 ```
-> rprintf("Hello, %s","world")
+
+```
 [1] "Hello, world"
+```
 
-> rprintf("%s (%d years old)","Ken",24)
+```r
+rprintf("%s (%d years old)","Ken",24)
+```
+
+```
 [1] "Ken (24 years old)"
+```
 
-> rprintf("He is %d but has a height of %.1fcm",18,190)
+```r
+rprintf("He is %d but has a height of %.1fcm",18,190)
+```
+
+```
 [1] "He is 18 but has a height of 190.0cm"
 ```
 
 ### Named variable-based formatting
 
+
+```r
+rprintf("Hello, $name", name="world")
 ```
-> rprintf("Hello, $name", name="world")
+
+```
 [1] "Hello, world"
+```
 
-> rprintf("$name ($age years old)",name="Ken",age=24)
+```r
+rprintf("$name ($age years old)",name="Ken",age=24)
+```
+
+```
 [1] "Ken (24 years old)"
+```
 
-> rprintf("He is $age but has a height of $height:.2fcm",age=18,height=190)
+```r
+rprintf("He is $age but has a height of $height:.2fcm",age=18,height=190)
+```
+
+```
 [1] "He is 18 but has a height of 190.00cm"
+```
 
-> rprintf("$a, $b:.1f, $c:+.2f, $b, $a:.0f",a=1.56,b=2.34,c=3.78)
+```r
+rprintf("$a, $b:.1f, $c:+.2f, $b, $a:.0f",a=1.56,b=2.34,c=3.78)
+```
+
+```
 [1] "1.56, 2.3, +3.78, 2.34, 2"
 ```
 
 ### Number-based formatting
 
+
+```r
+rprintf("Hello, {1}", "world")
 ```
-> rprintf("Hello, {1}", "world")
+
+```
 [1] "Hello, world"
+```
 
-> rprintf("{1} ({2} years old)","Ken",24)
+```r
+rprintf("{1} ({2} years old)","Ken",24)
+```
+
+```
 [1] "Ken (24 years old)"
+```
 
-> rprintf("He is {1} but has a height of {2:.2f}cm",18,190)
+```r
+rprintf("He is {1} but has a height of {2:.2f}cm",18,190)
+```
+
+```
 [1] "He is 18 but has a height of 190.00cm"
+```
 
-> rprintf("{1}, {2:.1f}, {3:+.2f}, {2}, {1:.0f}",1.56,2.34,3.78)
+```r
+rprintf("{1}, {2:.1f}, {3:+.2f}, {2}, {1:.0f}",1.56,2.34,3.78)
+```
+
+```
 [1] "1.56, 2.3, +3.78, 2.34, 2"
+```
 
-> rprintf("{2},{1}","x","y")
+```r
+rprintf("{2},{1}","x","y")
+```
+
+```
 [1] "y,x"
 ```
 
 ### Working with named character vectors and lists
 
+
+```r
+rprintf(c("%s:%d","$name:$age","{1}:{2}"),name="Ken",age=24)
 ```
-> rprintf(c("%s:%d","$name:$age","{1}:{2}"),name="Ken",age=24)
+
+```
 [1] "Ken:24" "Ken:24" "Ken:24"
+```
 
-> rprintf(c(a="%s:%d",b="$name:$age",c="{1}:{2}"),name="Ken",age=24)
-       a        b        c 
-"Ken:24" "Ken:24" "Ken:24"
+```r
+rprintf(c(a="%s:%d",b="$name:$age",c="{1}:{2}"),name="Ken",age=24)
+```
 
-> rprintf(list("%s:%d","$name:$age","{1}:{2}"),name="Ken",age=24)
+```
+[1] "Ken:24" "Ken:24" "Ken:24"
+```
+
+```r
+rprintf(list("%s:%d","$name:$age","{1}:{2}"),name="Ken",age=24)
+```
+
+```
 [[1]]
 [1] "Ken:24"
 
@@ -90,8 +168,13 @@ The following examples demonstrate how `rprintf` functions works. You should be 
 
 [[3]]
 [1] "Ken:24"
+```
 
-> rprintf(list(a="%s:%d",b="$name:$age",c="{1}:{2}"),name="Ken",age=24)
+```r
+rprintf(list(a="%s:%d",b="$name:$age",c="{1}:{2}"),name="Ken",age=24)
+```
+
+```
 $a
 [1] "Ken:24"
 
@@ -104,9 +187,39 @@ $c
 
 For each type of formatting, a specialized function is also provided. `rprintv` only handles named variable-based formatting, and `rprintn` only handles number-based formatting.
 
-## Help overview
+### Working with list argument
+
+Instead of specifying named arguments, supplying a list containing the named variables works too.
+
+
+```r
+args <- list(name="Ken",age=24)
+rprintf("Name: %s, Age: %d",args)
+```
 
 ```
+[1] "Name: Ken, Age: 24"
+```
+
+```r
+rprintf("Name: $name, Age: $age",args)
+```
+
+```
+[1] "Name: Ken, Age: 24"
+```
+
+```r
+rprintf("Name: {1}, Age: {2}",args)
+```
+
+```
+[1] "Name: Ken, Age: 24"
+```
+
+## Help overview
+
+```r
 help(package = rprintf)
 ```
 
