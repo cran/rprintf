@@ -36,20 +36,21 @@
 #' rprintf(list("%s:%d","$name:$age","{1}:{2}"),name="Ken",age=24)
 #' rprintf(list(a="%s:%d",b="$name:$age",c="{1}:{2}"),name="Ken",age=24)
 #'
-#' # This function works with list argument for named variables.
+#' # It also works with list argument for named variables.
 #' p <- list(name="Ken",age=24)
 #' rprintf("name: $name, age: $age",p)
 #' rprintf("name: {1}, age: {2}",p)
+#'
+#' Note that when the list of arguments are given names,
+#' the variable names in format string should be modified.
+#' rprintf("name: $arg.name, age: $arg.age", arg = p)
 #' }
 rprintf <- function(x,...) {
-  matches <- do.call(cbind,
-    lapply(patterns,function(pattern) {
-      grepl(pattern,x,perl = TRUE)
-  }))
+  matches <- do.call(cbind,lapply(patterns,
+    function(p) grepl(p,x,perl = TRUE)))
   funs.id <- apply(matches,1L,function(row) which(row)[1L])
   funs <- names(patterns)[funs.id]
-  args <- list(...)
-  result <- Map(rprintf.match,x,funs,list(args))
+  result <- Map(rprintf.match,x,funs,list(list(...)))
   if(is.list(x)) result
-  else unlist(result,use.names = FALSE)
+  else setnames(unlist(result,use.names = FALSE),names(x))
 }
